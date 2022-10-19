@@ -85,6 +85,7 @@ public class LivroDAO {
         stmt.setInt(4, livro.getPaginas());
         stmt.setString(5, livro.getSinopse());
         stmt.setInt(6, livro.getGenero().getId());
+        stmt.setInt(7, livro.getId());
 
         
         stmt.execute();

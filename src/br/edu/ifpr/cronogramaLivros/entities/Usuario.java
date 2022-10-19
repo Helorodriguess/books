@@ -56,5 +56,10 @@ public class Usuario {
     public Usuario() {
     }
     
+    @Override
+    public String toString() {
+        return nome + " - " + email;
+    }
+
     
 }

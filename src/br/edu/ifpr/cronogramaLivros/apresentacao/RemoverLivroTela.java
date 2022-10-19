@@ -4,6 +4,14 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.DAO.LivroDAO;
+import br.edu.ifpr.cronogramaLivros.entities.Livro;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author heloi
@@ -13,10 +21,23 @@ public class RemoverLivroTela extends javax.swing.JFrame {
     /**
      * Creates new form RemoverLivroTela
      */
-    public RemoverLivroTela() {
+    public RemoverLivroTela() throws SQLException {
         initComponents();
+        atualizarCmbBox();
     }
 
+    private void atualizarCmbBox() throws SQLException{
+        cmbLivro.removeAllItems();
+        LivroDAO dao = new LivroDAO();
+        ArrayList<Livro> livros = dao.selecionar();
+        
+        for (int i = 0; i < livros.size(); i++) {
+            cmbLivro.addItem(livros.get(i)); 
+        }
+    
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,26 +48,29 @@ public class RemoverLivroTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton3 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        lblLivro = new javax.swing.JLabel();
+        cmbLivro = new javax.swing.JComboBox<>();
+        btnVoltar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
 
         jButton3.setText("jButton3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Remover livro");
 
-        jLabel9.setText("Selecione:");
+        lblLivro.setText("Selecione:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnVoltar.setText("Voltar");
 
-        jButton1.setText("Voltar");
+        btnCancelar.setText("Cancelar");
 
-        jButton2.setText("Cancelar");
-
-        jButton4.setText("Remover");
+        btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,16 +80,16 @@ public class RemoverLivroTela extends javax.swing.JFrame {
                 .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(lblLivro)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(jButton1)
+                        .addComponent(btnVoltar)
                         .addGap(42, 42, 42)
-                        .addComponent(jButton2)
+                        .addComponent(btnCancelar)
                         .addGap(36, 36, 36)
-                        .addComponent(jButton4)))
+                        .addComponent(btnRemover)))
                 .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
@@ -73,18 +97,39 @@ public class RemoverLivroTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(cmbLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLivro))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4))
+                    .addComponent(btnVoltar)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnRemover))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        // TODO add your handling code here:
+        Livro livro = (Livro) cmbLivro.getSelectedItem();
+        LivroDAO dao = new LivroDAO();
+        try {
+            dao.removerLivro(livro);
+        } catch (SQLException ex) {
+            Logger.getLogger(AlterarLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JOptionPane.showConfirmDialog(null, "Livro removido com sucesso!", "Alterar livro", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+        
+        try {
+            atualizarCmbBox();
+        } catch (SQLException ex) {
+            Logger.getLogger(RemoverLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,17 +161,21 @@ public class RemoverLivroTela extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RemoverLivroTela().setVisible(true);
+                try {
+                    new RemoverLivroTela().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RemoverLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnRemover;
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<Livro> cmbLivro;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblLivro;
     // End of variables declaration//GEN-END:variables
 }

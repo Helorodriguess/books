@@ -4,6 +4,13 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.DAO.UsuarioDAO;
+import br.edu.ifpr.cronogramaLivros.entities.Usuario;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author heloi
@@ -38,7 +45,7 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
         lblNome = new javax.swing.JLabel();
         lblAdmin = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbIsAdm = new javax.swing.JComboBox<>();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -52,6 +59,11 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
         lblSenha.setText("Senha:");
 
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -61,7 +73,7 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
 
         lblAdmin.setText("Admin:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "É admin", "Não é admin", "" }));
+        cmbIsAdm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "É admin", "Não é admin", "" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,7 +101,7 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(lblAdmin)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cmbIsAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(lblNome)
                             .addGap(18, 18, 18)
@@ -114,7 +126,7 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAdmin)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbIsAdm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltar)
@@ -125,6 +137,45 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+
+        String email = txtEmail.getText();
+        String nome = txtNome.getText();
+        String senha = txtSenha.getText();
+        int isAdmin = cmbIsAdm.getSelectedIndex();
+        boolean isAdminBoolean = false;
+
+        if (isAdmin == 0) {
+            isAdminBoolean = true;
+        } else if (isAdmin == 1) {
+            isAdminBoolean = false;
+        }
+
+        int i = JOptionPane.showConfirmDialog(rootPane, "Deseja cadastrar o usuario? \n" + nome + " - " + email,
+                "Confirmação do cadastro de usuário", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+
+        if (i == 0) {
+
+            Usuario usuario = new Usuario(email, senha, nome, isAdminBoolean);
+            UsuarioDAO dao = new UsuarioDAO();
+
+            try {
+                dao.adicionarUsuario(usuario);
+            } catch (SQLException ex) {
+                Logger.getLogger(CadastrarLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            txtEmail.setText("");
+            txtNome.setText("");
+            txtSenha.setText("");
+        } else if (i != 0) {
+            txtEmail.setText("");
+            txtNome.setText("");
+            txtSenha.setText("");
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,7 +219,7 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cmbIsAdm;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lblAdmin;

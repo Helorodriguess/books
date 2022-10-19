@@ -9,6 +9,7 @@ package br.edu.ifpr.cronogramaLivros.entities;
  * @author heloi
  */
 public class Genero {
+
     int id;
     String nome;
 
@@ -30,10 +31,14 @@ public class Genero {
 
     public Genero(String nome) {
         this.nome = nome;
-    }    
+    }
 
     public Genero() {
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+
 }

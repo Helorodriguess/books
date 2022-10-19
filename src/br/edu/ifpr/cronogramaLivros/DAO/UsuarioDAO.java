@@ -40,7 +40,7 @@ public class UsuarioDAO {
      public ArrayList<Usuario> selecionar() throws SQLException {
 
         ArrayList<Usuario> retorno = new ArrayList<>();
-        String sql = "SELECT ID, EMAIL, SENHA, NOME, ISADM FROM USUARIO ORDER BY NOME";
+        String sql = "SELECT EMAIL, SENHA, NOME, ISADM FROM USUARIO ORDER BY NOME";
 
         Connection con = new ConnectionFactory().getConnection();
 
@@ -72,6 +72,7 @@ public class UsuarioDAO {
         stmt.setString(2, usuario.getSenha());
         stmt.setString(3, usuario.getNome());
         stmt.setBoolean(4, usuario.isIsAdmin());
+        stmt.setString(5, usuario.getEmail());
         
         stmt.execute();
         
@@ -80,7 +81,7 @@ public class UsuarioDAO {
 
     }
      
-      public void removerProduto(Usuario usuario) throws SQLException {
+      public void removerUsuario(Usuario usuario) throws SQLException {
     
         String sql = "DELETE FROM USUARIO WHERE EMAIL = ?";   
         

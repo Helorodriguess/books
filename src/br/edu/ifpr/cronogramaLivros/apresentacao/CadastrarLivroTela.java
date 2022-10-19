@@ -4,6 +4,16 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.DAO.GeneroDAO;
+import br.edu.ifpr.cronogramaLivros.DAO.LivroDAO;
+import br.edu.ifpr.cronogramaLivros.entities.Genero;
+import br.edu.ifpr.cronogramaLivros.entities.Livro;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author heloi
@@ -13,8 +23,15 @@ public class CadastrarLivroTela extends javax.swing.JFrame {
     /**
      * Creates new form CadastrarLivroTela
      */
-    public CadastrarLivroTela() {
+    public CadastrarLivroTela() throws SQLException {
         initComponents();
+
+        GeneroDAO dao = new GeneroDAO();
+        ArrayList<Genero> generos = dao.selecionar();
+
+        for (int i = 0; i < generos.size(); i++) {
+            cmbGenero.addItem(generos.get(i));
+        }
     }
 
     /**
@@ -26,45 +43,47 @@ public class CadastrarLivroTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        lblTitulo = new javax.swing.JLabel();
+        lblAutor = new javax.swing.JLabel();
+        lblEditora = new javax.swing.JLabel();
+        lblPagina = new javax.swing.JLabel();
+        lblSinopse = new javax.swing.JLabel();
+        lblGenero = new javax.swing.JLabel();
+        txtTitulo = new javax.swing.JTextField();
+        txtAutor = new javax.swing.JTextField();
+        txtEditora = new javax.swing.JTextField();
+        txtPaginas = new javax.swing.JTextField();
+        txtSinopse = new javax.swing.JTextField();
+        cmbGenero = new javax.swing.JComboBox<>();
+        btnVoltar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar livro");
 
-        jLabel2.setText("Título:");
+        lblTitulo.setText("Título:");
 
-        jLabel3.setText("Autor:");
+        lblAutor.setText("Autor:");
 
-        jLabel4.setText("Editora:");
+        lblEditora.setText("Editora:");
 
-        jLabel5.setText("Páginas:");
+        lblPagina.setText("Páginas:");
 
-        jLabel6.setText("Sinopse:");
+        lblSinopse.setText("Sinopse:");
 
-        jLabel7.setText("Gênero:");
+        lblGenero.setText("Gênero:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnVoltar.setText("Voltar");
 
-        jButton1.setText("Voltar");
-        jButton1.setActionCommand("Voltar");
+        btnCancelar.setText("Cancelar");
 
-        jButton2.setText("Cancelar");
-
-        jButton3.setText("Cadastrar");
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,32 +95,32 @@ public class CadastrarLivroTela extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)
+                                .addComponent(lblPagina)
+                                .addComponent(lblSinopse)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
+                                    .addComponent(lblEditora)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel3)))
-                                .addComponent(jLabel7))
+                                        .addComponent(lblTitulo)
+                                        .addComponent(lblAutor)))
+                                .addComponent(lblGenero))
                             .addGap(32, 32, 32)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField5)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(txtSinopse)
+                                .addComponent(cmbGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(77, 77, 77)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField4)
-                                .addComponent(jTextField3)
-                                .addComponent(jTextField2)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtPaginas)
+                                .addComponent(txtEditora)
+                                .addComponent(txtAutor)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(jButton1)
+                        .addComponent(btnVoltar)
                         .addGap(42, 42, 42)
-                        .addComponent(jButton2)
+                        .addComponent(btnCancelar)
                         .addGap(36, 36, 36)
-                        .addComponent(jButton3)))
+                        .addComponent(btnCadastrar)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,38 +128,76 @@ public class CadastrarLivroTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTitulo)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblAutor)
+                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblEditora)
+                    .addComponent(txtEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPagina)
+                    .addComponent(txtPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSinopse)
+                    .addComponent(txtSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblGenero)
+                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnVoltar)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnCadastrar))
                 .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        // TODO add your handling code here:
+        String titulo = txtTitulo.getText();
+        String autor = txtAutor.getText();
+        String editora = txtEditora.getText();
+        int paginas = Integer.parseInt(txtPaginas.getText());
+        String sinopse = txtSinopse.getText();
+        Genero genero = (Genero) cmbGenero.getSelectedItem();
+
+        int i = JOptionPane.showConfirmDialog(rootPane, "Deseja cadastrar o livro? \n" + titulo + " - " + genero,
+                "Confirmação do cadastro", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
+
+        if (i == 0) {
+
+            Livro livro = new Livro(titulo, autor, editora, paginas, sinopse, genero);
+            LivroDAO dao = new LivroDAO();
+
+            try {
+                dao.adicionarLivro(livro);
+            } catch (SQLException ex) {
+                Logger.getLogger(CadastrarLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            txtTitulo.setText(""); //limpa o campo de texto, mostra parâmetros do método setter 'Nome'
+            txtAutor.setText(""); //limpa o campo de texto, mostra os parâmetros do método setter 'Preco'
+            txtEditora.setText("");
+            txtPaginas.setText("");
+            txtSinopse.setText("");
+        } else if (i != 0) {
+            txtTitulo.setText(""); //limpa o campo de texto, mostra parâmetros do método setter 'Nome'
+            txtAutor.setText(""); //limpa o campo de texto, mostra os parâmetros do método setter 'Preco'
+            txtEditora.setText("");
+            txtPaginas.setText("");
+            txtSinopse.setText("");
+        }
+
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,26 +229,30 @@ public class CadastrarLivroTela extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastrarLivroTela().setVisible(true);
+                try {
+                    new CadastrarLivroTela().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CadastrarLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JComboBox<Genero> cmbGenero;
+    private javax.swing.JLabel lblAutor;
+    private javax.swing.JLabel lblEditora;
+    private javax.swing.JLabel lblGenero;
+    private javax.swing.JLabel lblPagina;
+    private javax.swing.JLabel lblSinopse;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtAutor;
+    private javax.swing.JTextField txtEditora;
+    private javax.swing.JTextField txtPaginas;
+    private javax.swing.JTextField txtSinopse;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

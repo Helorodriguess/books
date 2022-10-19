@@ -4,6 +4,14 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.DAO.UsuarioDAO;
+import br.edu.ifpr.cronogramaLivros.entities.Usuario;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author heloi
@@ -13,10 +21,22 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
     /**
      * Creates new form RemoverUsuarioTela
      */
-    public RemoverUsuarioTela() {
+    public RemoverUsuarioTela() throws SQLException {
         initComponents();
+        atualizarCmbBox();
     }
 
+    
+    private void atualizarCmbBox() throws SQLException{
+        cmbUsuario.removeAllItems();
+        UsuarioDAO dao = new UsuarioDAO();
+        ArrayList<Usuario> usuarios = dao.selecionar();
+        
+        for (int i = 0; i < usuarios.size(); i++) {
+            cmbUsuario.addItem(usuarios.get(i)); 
+        }
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,15 +46,15 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lblUsuario = new javax.swing.JLabel();
+        cmbUsuario = new javax.swing.JComboBox<>();
         btnVoltar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRemover = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Remover usuário");
 
-        jLabel2.setText("Selecione o Usuario");
+        lblUsuario.setText("Selecione o Usuario");
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -43,7 +63,12 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Remover");
+        btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,14 +78,14 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(lblUsuario)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(btnVoltar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(btnRemover)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
@@ -69,12 +94,12 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblUsuario)
+                    .addComponent(cmbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVoltar)
-                    .addComponent(jButton2))
+                    .addComponent(btnRemover))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -84,6 +109,27 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        // TODO add your handling code here:
+        Usuario usuario = (Usuario) cmbUsuario.getSelectedItem();
+        UsuarioDAO dao = new UsuarioDAO();
+        try {
+            dao.removerUsuario(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(AlterarLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JOptionPane.showConfirmDialog(null, "usuario removido com sucesso!", "Alterar usuario", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
+        
+        try {
+            atualizarCmbBox();
+        } catch (SQLException ex) {
+            Logger.getLogger(RemoverLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,15 +161,19 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RemoverUsuarioTela().setVisible(true);
+                try {
+                    new RemoverUsuarioTela().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RemoverUsuarioTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<Usuario> cmbUsuario;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

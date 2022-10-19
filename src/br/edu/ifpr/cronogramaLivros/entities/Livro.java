@@ -9,6 +9,7 @@ package br.edu.ifpr.cronogramaLivros.entities;
  * @author heloi
  */
 public class Livro {
+
     int id;
     String titulo;
     String autor;
@@ -84,7 +85,10 @@ public class Livro {
 
     public Livro() {
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return titulo + " - " + autor;
+    }
+
 }
