@@ -4,6 +4,14 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.DAO.UsuarioDAO;
+import br.edu.ifpr.cronogramaLivros.entities.Usuario;
+import br.edu.ifpr.cronogramaLivros.global.UsuarioAutenticado;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author heloi
@@ -85,6 +93,32 @@ public class FazerLoginTela extends javax.swing.JFrame {
         // TODO add your handling code here:
         String email = txtEmail.getText();
         String senha = txtSenha.getText();
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        Usuario usuario = null;
+        try {
+            usuario = dao.autenticar(email, senha);
+        } catch (SQLException ex) {
+            Logger.getLogger(FazerLoginTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (usuario == null){
+            JOptionPane.showMessageDialog(this, "Usuário/senha não existem.");
+        }
+        else{
+            UsuarioAutenticado.usuario = usuario;
+            if(UsuarioAutenticado.usuario.isIsAdmin()== true){
+                MenuAdminTela tela = new MenuAdminTela();
+                this.setVisible(false);
+                tela.setVisible(true);
+            }else{
+                MenuTela tela = new MenuTela();
+                this.setVisible(false);
+                tela.setVisible(true);
+            }
+        }
+        
+       
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**

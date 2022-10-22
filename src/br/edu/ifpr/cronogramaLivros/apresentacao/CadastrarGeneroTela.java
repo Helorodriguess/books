@@ -52,6 +52,11 @@ public class CadastrarGeneroTela extends javax.swing.JFrame {
         });
 
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -119,6 +124,13 @@ public class CadastrarGeneroTela extends javax.swing.JFrame {
             txtNome.setText(""); //limpa o campo de texto, usa parâmetros do método setter 'Nome'
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        MenuAdminTela tela = new MenuAdminTela();
+        this.setVisible(false);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments

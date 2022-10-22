@@ -108,6 +108,9 @@ public class RemoverUsuarioTela extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
+        MenuAdminTela tela = new MenuAdminTela();
+        this.setVisible(false);
+        tela.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed

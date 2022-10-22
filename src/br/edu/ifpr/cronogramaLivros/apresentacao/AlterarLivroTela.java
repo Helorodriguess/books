@@ -60,7 +60,6 @@ public class AlterarLivroTela extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtEditora = new javax.swing.JTextField();
         txtPaginas = new javax.swing.JTextField();
-        txtSinopse = new javax.swing.JTextField();
         lblTitulo = new javax.swing.JLabel();
         cmbGenero = new javax.swing.JComboBox<>();
         lblAutor = new javax.swing.JLabel();
@@ -75,6 +74,8 @@ public class AlterarLivroTela extends javax.swing.JFrame {
         txtAutor = new javax.swing.JTextField();
         lblSelecionar = new javax.swing.JLabel();
         cmbLivro = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtSinopse = new javax.swing.JTextArea();
 
         jLabel1.setText("jLabel1");
 
@@ -86,6 +87,11 @@ public class AlterarLivroTela extends javax.swing.JFrame {
         lblAutor.setText("Autor:");
 
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         lblEditora.setText("Editora:");
 
@@ -112,56 +118,60 @@ public class AlterarLivroTela extends javax.swing.JFrame {
             }
         });
 
+        txtSinopse.setColumns(20);
+        txtSinopse.setRows(5);
+        jScrollPane1.setViewportView(txtSinopse);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lblPaginas)
-                                .addComponent(lblSinopse)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEditora)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblTitulo)
-                                        .addComponent(lblAutor)))
-                                .addComponent(lblGenero)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPaginas)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblEditora)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblTitulo)
+                                    .addComponent(lblAutor)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblSelecionar)
+                                .addGap(7, 7, 7)))
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbLivro, 0, 312, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblSelecionar)
-                                    .addGap(7, 7, 7)))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(cmbLivro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cmbGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtSinopse, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(77, 77, 77)
+                                    .addComponent(lblGenero)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(btnVoltar)
+                                            .addGap(40, 40, 40)
+                                            .addComponent(btnCancelar)
+                                            .addGap(31, 31, 31)
+                                            .addComponent(btnAlterar))
+                                        .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(lblSinopse)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtPaginas)
                                 .addComponent(txtEditora)
                                 .addComponent(txtAutor)
-                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVoltar)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnCancelar)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnAlterar)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAlterar)
-                    .addComponent(btnVoltar)
-                    .addComponent(btnCancelar))
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSelecionar)
                     .addComponent(cmbLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,14 +192,21 @@ public class AlterarLivroTela extends javax.swing.JFrame {
                     .addComponent(lblPaginas)
                     .addComponent(txtPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(lblSinopse))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSinopse)
-                    .addComponent(txtSinopse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGenero))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGenero)
-                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58))
+                    .addComponent(btnAlterar)
+                    .addComponent(btnVoltar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -243,6 +260,13 @@ public class AlterarLivroTela extends javax.swing.JFrame {
         //como colocar o genero? 
     }//GEN-LAST:event_cmbLivroActionPerformed
 
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        MenuAdminTela tela = new MenuAdminTela();
+        this.setVisible(false);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,6 +313,7 @@ public class AlterarLivroTela extends javax.swing.JFrame {
     private javax.swing.JComboBox<Genero> cmbGenero;
     private javax.swing.JComboBox<Livro> cmbLivro;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAutor;
     private javax.swing.JLabel lblEditora;
     private javax.swing.JLabel lblGenero;
@@ -299,7 +324,7 @@ public class AlterarLivroTela extends javax.swing.JFrame {
     private javax.swing.JTextField txtAutor;
     private javax.swing.JTextField txtEditora;
     private javax.swing.JTextField txtPaginas;
-    private javax.swing.JTextField txtSinopse;
+    private javax.swing.JTextArea txtSinopse;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

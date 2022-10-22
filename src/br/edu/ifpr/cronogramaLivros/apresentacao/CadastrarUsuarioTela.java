@@ -68,6 +68,11 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
 
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         lblNome.setText("Nome:");
 
@@ -176,6 +181,13 @@ public class CadastrarUsuarioTela extends javax.swing.JFrame {
             txtSenha.setText("");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        MenuAdminTela tela = new MenuAdminTela();
+        this.setVisible(false);
+        tela.setVisible(true);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
