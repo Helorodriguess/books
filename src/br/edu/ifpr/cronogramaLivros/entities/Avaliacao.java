@@ -15,6 +15,9 @@ public class Avaliacao {
     Usuario usuario;
     Livro livro;
 
+    public Avaliacao() {
+    }
+
     public int getId() {
         return id;
     }

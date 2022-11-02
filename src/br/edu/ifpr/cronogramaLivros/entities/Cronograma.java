@@ -15,6 +15,15 @@ public class Cronograma {
     Usuario usuario;
     Date dataInicial;
     int paginasDiarias;
+    boolean finalizado;
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
+    }
 
     public int getId() {
         return id;
@@ -48,10 +57,11 @@ public class Cronograma {
         this.paginasDiarias = paginasDiarias;
     }
 
-    public Cronograma(Usuario usuario, Date dataInicial, int paginasDiarias) {
+    public Cronograma(Usuario usuario, Date dataInicial, int paginasDiarias, boolean finalizado) {
         this.usuario = usuario;
         this.dataInicial = dataInicial;
         this.paginasDiarias = paginasDiarias;
+        this.finalizado = finalizado;
     }
     
 }

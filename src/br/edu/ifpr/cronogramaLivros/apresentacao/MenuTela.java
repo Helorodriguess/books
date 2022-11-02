@@ -4,6 +4,10 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author heloi
@@ -162,7 +166,12 @@ public class MenuTela extends javax.swing.JFrame {
 
     private void btnAvaliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvaliarActionPerformed
         // TODO add your handling code here:
-        FazerAvaliacaoTela tela = new FazerAvaliacaoTela();
+        FazerAvaliacaoTela tela = null;
+        try {
+            tela = new FazerAvaliacaoTela();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         tela.setVisible(true);
     }//GEN-LAST:event_btnAvaliarActionPerformed
