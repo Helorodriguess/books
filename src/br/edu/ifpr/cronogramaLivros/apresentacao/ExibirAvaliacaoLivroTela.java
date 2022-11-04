@@ -4,17 +4,35 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.DAO.LivroDAO;
+import br.edu.ifpr.cronogramaLivros.entities.Livro;
+import br.edu.ifpr.cronogramaLivros.models.ExibirAvaliacoesModel;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author heloi
  */
-public class ExibirAvaliacoesLivroTela extends javax.swing.JFrame {
+public class ExibirAvaliacaoLivroTela extends javax.swing.JFrame {
+    
+    ExibirAvaliacoesModel model;
 
     /**
      * Creates new form ExibirAvaliacoesLivroTela
      */
-    public ExibirAvaliacoesLivroTela() {
+    public ExibirAvaliacaoLivroTela() throws SQLException {
         initComponents();
+        LivroDAO dao = new LivroDAO();
+        ArrayList<Livro> livros = dao.selecionar();
+        
+        for (int i = 0; i < livros.size(); i++) {
+            cmbLivro.addItem(livros.get(i)); 
+        }
+        
+        
     }
 
     /**
@@ -27,10 +45,10 @@ public class ExibirAvaliacoesLivroTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        cmbLivro = new javax.swing.JComboBox<>();
+        btnVerAvaliacoes = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbAvaliacoes = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,22 +56,25 @@ public class ExibirAvaliacoesLivroTela extends javax.swing.JFrame {
 
         jLabel1.setText("Selecione:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        btnVerAvaliacoes.setText("Ver avaliações");
+        btnVerAvaliacoes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerAvaliacoesActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Ver avaliações");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbAvaliacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nota", "Comentario"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbAvaliacoes);
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,9 +93,9 @@ public class ExibirAvaliacoesLivroTela extends javax.swing.JFrame {
                         .addGap(63, 63, 63)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addComponent(btnVerAvaliacoes))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -89,8 +110,8 @@ public class ExibirAvaliacoesLivroTela extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(cmbLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerAvaliacoes))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -107,6 +128,23 @@ public class ExibirAvaliacoesLivroTela extends javax.swing.JFrame {
         this.setVisible(false);
         tela.setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnVerAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAvaliacoesActionPerformed
+        // TODO add your handling code here:
+        Livro livro = (Livro) cmbLivro.getSelectedItem();
+        
+        
+        try {
+            model = new ExibirAvaliacoesModel(livro);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ExibirAvaliacaoLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        tbAvaliacoes.setModel(model);
+        
+        
+    }//GEN-LAST:event_btnVerAvaliacoesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,30 +163,35 @@ public class ExibirAvaliacoesLivroTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExibirAvaliacoesLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExibirAvaliacoesLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExibirAvaliacoesLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExibirAvaliacoesLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExibirAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExibirAvaliacoesLivroTela().setVisible(true);
+                try {
+                    new ExibirAvaliacaoLivroTela().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ExibirAvaliacaoLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVerAvaliacoes;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Livro> cmbLivro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbAvaliacoes;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,8 +4,12 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.DAO.AvaliacaoDAO;
 import br.edu.ifpr.cronogramaLivros.DAO.LivroDAO;
+import br.edu.ifpr.cronogramaLivros.entities.Avaliacao;
 import br.edu.ifpr.cronogramaLivros.entities.Livro;
+import br.edu.ifpr.cronogramaLivros.entities.Usuario;
+import br.edu.ifpr.cronogramaLivros.global.UsuarioAutenticado;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -15,12 +19,12 @@ import java.util.logging.Logger;
  *
  * @author heloi
  */
-public class FazerAvaliacaoTela extends javax.swing.JFrame {
+public class FazerAvaliacaoLivroTela extends javax.swing.JFrame {
 
     /**
      * Creates new form FazerAvaliacaoTela
      */
-    public FazerAvaliacaoTela() throws SQLException {
+    public FazerAvaliacaoLivroTela() throws SQLException {
         initComponents();
         LivroDAO dao = new LivroDAO();
         ArrayList<Livro> livros = dao.selecionar();
@@ -78,6 +82,11 @@ public class FazerAvaliacaoTela extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
 
         btnPublicar.setText("Publicar");
+        btnPublicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPublicarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,6 +149,24 @@ public class FazerAvaliacaoTela extends javax.swing.JFrame {
         tela.setVisible(true);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
+    private void btnPublicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicarActionPerformed
+        // TODO add your handling code here:
+        Livro livro = (Livro) cmbLivro.getSelectedItem();
+        int nota = cmbNota.getSelectedIndex();
+        String comentario = txtComentario.getText();
+        Usuario usuario = UsuarioAutenticado.usuario;
+        
+        Avaliacao avaliacao = new Avaliacao(nota, comentario, usuario ,livro);
+        AvaliacaoDAO dao = new  AvaliacaoDAO();
+        try {
+            dao.adicionarAvaliacao(avaliacao);
+        } catch (SQLException ex) {
+            Logger.getLogger(FazerAvaliacaoLivroTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        txtComentario.setText("");
+    }//GEN-LAST:event_btnPublicarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -157,23 +184,24 @@ public class FazerAvaliacaoTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FazerAvaliacaoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FazerAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FazerAvaliacaoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FazerAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FazerAvaliacaoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FazerAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FazerAvaliacaoTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FazerAvaliacaoLivroTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FazerAvaliacaoTela().setVisible(true);
+                    new FazerAvaliacaoLivroTela().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(FazerAvaliacaoTela.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FazerAvaliacaoLivroTela.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

@@ -4,17 +4,26 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.models.ExibirCronogramaModel;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author heloi
  */
 public class ExibirCronogramaTela extends javax.swing.JFrame {
+    
+    ExibirCronogramaModel model;
 
     /**
      * Creates new form ExibirCronogramaTela
      */
-    public ExibirCronogramaTela() {
+    public ExibirCronogramaTela() throws SQLException {
         initComponents();
+         model = new ExibirCronogramaModel();
+        tbCronograma.setModel(model);
     }
 
     /**
@@ -31,14 +40,14 @@ public class ExibirCronogramaTela extends javax.swing.JFrame {
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbCronograma = new javax.swing.JTable();
         jCheckBox1 = new javax.swing.JCheckBox();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cronograma");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbCronograma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,7 +66,7 @@ public class ExibirCronogramaTela extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbCronograma);
 
         jCheckBox1.setText("Cronograma finalizado");
 
@@ -136,7 +145,11 @@ public class ExibirCronogramaTela extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExibirCronogramaTela().setVisible(true);
+                try {
+                    new ExibirCronogramaTela().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ExibirCronogramaTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -149,6 +162,6 @@ public class ExibirCronogramaTela extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbCronograma;
     // End of variables declaration//GEN-END:variables
 }

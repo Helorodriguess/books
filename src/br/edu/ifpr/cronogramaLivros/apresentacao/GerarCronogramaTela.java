@@ -4,17 +4,26 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.models.GerarCronogramaModel;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author heloi
  */
-public class CriarCronogramaTela extends javax.swing.JFrame {
+public class GerarCronogramaTela extends javax.swing.JFrame {
+    
+    GerarCronogramaModel model;
 
     /**
      * Creates new form CriarCronogramaTela
      */
-    public CriarCronogramaTela() {
+    public GerarCronogramaTela() throws SQLException {
         initComponents();
+        model = new GerarCronogramaModel();
+        tbCronograma.setModel(model);
     }
 
     /**
@@ -27,7 +36,7 @@ public class CriarCronogramaTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbCronograma = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
@@ -39,7 +48,7 @@ public class CriarCronogramaTela extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Criar Cronograma");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbCronograma.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -58,7 +67,7 @@ public class CriarCronogramaTela extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbCronograma);
 
         jLabel4.setText("Data de início:");
 
@@ -152,20 +161,25 @@ public class CriarCronogramaTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CriarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CriarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CriarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CriarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerarCronogramaTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CriarCronogramaTela().setVisible(true);
+                try {
+                    new GerarCronogramaTela().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GerarCronogramaTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -177,8 +191,8 @@ public class CriarCronogramaTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tbCronograma;
     // End of variables declaration//GEN-END:variables
 }

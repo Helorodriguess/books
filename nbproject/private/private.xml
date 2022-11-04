@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/apresentacao/FazerAvaliacaoTela.java</file>
-            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/apresentacao/FazerLoginTela.java</file>
-            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/entities/Avaliacao.java</file>
-            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/DAO/LivroDAO.java</file>
-            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/DAO/AvaliacaoDAO.java</file>
+            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/apresentacao/ExibirHistoricoLeituraTela.java</file>
+            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/apresentacao/GerarCronogramaTela.java</file>
+            <file>file:/C:/Users/heloi/OneDrive/Documentos/NetBeansProjects/CronogramaDeLivros/src/br/edu/ifpr/cronogramaLivros/apresentacao/ExibirCronogramaTela.java</file>
         </group>
     </open-files>
 </project-private>

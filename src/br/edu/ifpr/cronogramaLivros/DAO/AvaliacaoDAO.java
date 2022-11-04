@@ -5,7 +5,7 @@
 package br.edu.ifpr.cronogramaLivros.DAO;
 
 import br.edu.ifpr.cronogramaLivros.entities.Avaliacao;
-import br.edu.ifpr.cronogramaLivros.entities.Genero;
+import br.edu.ifpr.cronogramaLivros.entities.Livro;
 import br.edu.ifpr.cronogramaLivros.factories.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,9 +18,8 @@ import java.util.ArrayList;
  * @author heloi
  */
 public class AvaliacaoDAO {
-    
-    
-    public void adicionarLivro(Avaliacao avaliacao) throws SQLException {
+
+    public void adicionarAvaliacao(Avaliacao avaliacao) throws SQLException {
         String sql = "INSERT INTO AVALIACAO (NOTA, COMENTARIO, EMAIL_USUARIO, ID_LIVRO) "
                 + "VALUES (?,?,?,?)";
 
@@ -37,33 +36,36 @@ public class AvaliacaoDAO {
         stmt.close();
         con.close();
     }
-    
-    
-    public ArrayList<Avaliacao> selecionar() throws SQLException {
+
+    public ArrayList<Avaliacao> selecionar(Livro livro) throws SQLException {
 
         ArrayList<Avaliacao> retorno = new ArrayList<>();
-        String sql = "SELECT NOTA, COMENTARIO FROM AVALIACAO WHERE ID = ?";
+        String sql = "SELECT AVALIACAO.NOTA, AVALIACAO.COMENTARIO, LIVRO.ID "
+                + "FROM AVALIACAO INNER JOIN LIVRO ON AVALIACAO.ID_LIVRO = LIVRO.ID "
+                + "WHERE LIVRO.ID =  ? ORDER BY AVALIACAO.NOTA";
 
         Connection con = new ConnectionFactory().getConnection();
 
         PreparedStatement stmt = con.prepareStatement(sql);
+        
+        stmt.setInt(1, livro.getId());
 
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next() == true) {
-            
-            Genero genero = new Genero();
-            genero.setId(rs.getInt("ID_GENERO"));
-            
+
             Avaliacao avaliacao = new Avaliacao();
+            
+            livro.setId(rs.getInt("ID"));
             avaliacao.setNota(rs.getInt("NOTA"));
             avaliacao.setComentario(rs.getString("COMENTARIO"));
+            avaliacao.setLivro(livro);
 
             retorno.add(avaliacao);
         }
 
         return retorno;
-        
+
     }
-    
+
 }

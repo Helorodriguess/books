@@ -20,6 +20,7 @@ public class AlterarUsuarioTela extends javax.swing.JFrame {
 
     /**
      * Creates new form AlterarUsuarioTela
+     * @throws java.sql.SQLException
      */
     public AlterarUsuarioTela() throws SQLException {
         initComponents();
@@ -189,11 +190,7 @@ public class AlterarUsuarioTela extends javax.swing.JFrame {
         
         JOptionPane.showConfirmDialog(null, "Usuário alterado com sucesso!", "Alterar usuário", 
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
-        
-        
-            txtEmail.setText("");
-            txtNome.setText("");
-            txtSenha.setText("");
+
             
         try {
             atualizarCmbBox();

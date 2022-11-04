@@ -13,6 +13,9 @@ public class CronogramaLivro {
     Livro livro;
     boolean lido;
 
+    public CronogramaLivro() {
+    }
+
     public Cronograma getCronograma() {
         return cronograma;
     }

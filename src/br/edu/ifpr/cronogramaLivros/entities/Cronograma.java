@@ -17,6 +17,10 @@ public class Cronograma {
     int paginasDiarias;
     boolean finalizado;
 
+    public Cronograma() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public boolean isFinalizado() {
         return finalizado;
     }

@@ -141,34 +141,50 @@ public class MenuTela extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMeuCronogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMeuCronogramaActionPerformed
         // TODO add your handling code here:
-        ExibirCronogramaTela tela = new ExibirCronogramaTela();
+        ExibirCronogramaTela tela = null;
+        try {
+            tela = new ExibirCronogramaTela();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         tela.setVisible(true);
     }//GEN-LAST:event_btnMeuCronogramaActionPerformed
 
     private void btnCriarCronogramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarCronogramaActionPerformed
         // TODO add your handling code here:
-        CriarCronogramaTela tela = new CriarCronogramaTela();
+        GerarCronogramaTela tela = null;
+        try {
+            tela = new GerarCronogramaTela();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         tela.setVisible(true);
     }//GEN-LAST:event_btnCriarCronogramaActionPerformed
 
     private void btnConsultarHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarHistoricoActionPerformed
         // TODO add your handling code here:
-        ExibirHistoricoLeituraTela tela = new ExibirHistoricoLeituraTela();
+        ExibirHistoricoLeituraTela tela = null;
+        try {
+            tela = new ExibirHistoricoLeituraTela();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         tela.setVisible(true);
     }//GEN-LAST:event_btnConsultarHistoricoActionPerformed
 
     private void btnAvaliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvaliarActionPerformed
         // TODO add your handling code here:
-        FazerAvaliacaoTela tela = null;
+        FazerAvaliacaoLivroTela tela = null;
         try {
-            tela = new FazerAvaliacaoTela();
+            tela = new FazerAvaliacaoLivroTela();
         } catch (SQLException ex) {
             Logger.getLogger(MenuTela.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -178,7 +194,12 @@ public class MenuTela extends javax.swing.JFrame {
 
     private void btnVerAvaliacoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAvaliacoesActionPerformed
         // TODO add your handling code here:
-        ExibirAvaliacoesLivroTela tela = new ExibirAvaliacoesLivroTela();
+        ExibirAvaliacaoLivroTela tela = null;
+        try {
+            tela = new ExibirAvaliacaoLivroTela();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuTela.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         tela.setVisible(true);
     }//GEN-LAST:event_btnVerAvaliacoesActionPerformed

@@ -22,12 +22,13 @@ public class AlterarLivroTela extends javax.swing.JFrame {
 
     /**
      * Creates new form AlterarLivroTela
+     * @throws java.sql.SQLException
      */
     public AlterarLivroTela() throws SQLException {
         initComponents();
         
-        GeneroDAO GeneroDao = new GeneroDAO();
-        ArrayList<Genero> generos = GeneroDao.selecionar();
+        GeneroDAO generoDao = new GeneroDAO();
+        ArrayList<Genero> generos = generoDao.selecionar();
         
         for (int i = 0; i < generos.size(); i++) {
             cmbGenero.addItem(generos.get(i));
@@ -46,7 +47,6 @@ public class AlterarLivroTela extends javax.swing.JFrame {
         }
     
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -233,13 +233,6 @@ public class AlterarLivroTela extends javax.swing.JFrame {
         JOptionPane.showConfirmDialog(null, "Livro alterado com sucesso!", "Alterar livro", 
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null);
         
-        
-                
-            txtTitulo.setText(""); //limpa o campo de texto, mostra parâmetros do método setter 'Nome'
-            txtAutor.setText(""); //limpa o campo de texto, mostra os parâmetros do método setter 'Preco'
-            txtEditora.setText("");
-            txtPaginas.setText("");
-            txtSinopse.setText("");
             
         try {
             atualizarCmbBox();
@@ -251,6 +244,7 @@ public class AlterarLivroTela extends javax.swing.JFrame {
 
     private void cmbLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbLivroActionPerformed
         // TODO add your handling code here:
+        if(cmbLivro.getSelectedItem() != null){
         Livro livro = (Livro) cmbLivro.getSelectedItem(); 
         
         txtTitulo.setText(livro.getTitulo());
@@ -258,7 +252,9 @@ public class AlterarLivroTela extends javax.swing.JFrame {
         txtEditora.setText(livro.getEditora());
         txtPaginas.setText(String.valueOf(livro.getPaginas()));
         txtSinopse.setText(livro.getSinopse());
-        //como colocar o genero? 
+        }
+        
+         
     }//GEN-LAST:event_cmbLivroActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed

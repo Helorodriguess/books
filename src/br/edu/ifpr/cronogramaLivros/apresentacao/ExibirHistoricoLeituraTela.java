@@ -4,17 +4,26 @@
  */
 package br.edu.ifpr.cronogramaLivros.apresentacao;
 
+import br.edu.ifpr.cronogramaLivros.models.ExibirHistoricoLeituraModel;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author heloi
  */
 public class ExibirHistoricoLeituraTela extends javax.swing.JFrame {
+    
+    ExibirHistoricoLeituraModel model;
 
     /**
      * Creates new form ExibirHistoricoLeituraTela
      */
-    public ExibirHistoricoLeituraTela() {
+    public ExibirHistoricoLeituraTela() throws SQLException {
         initComponents();
+        model = new ExibirHistoricoLeituraModel();
+        tbHistorico.setModel(model);
     }
 
     /**
@@ -27,13 +36,13 @@ public class ExibirHistoricoLeituraTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbHistorico = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Seu histórico de leitura");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -44,7 +53,7 @@ public class ExibirHistoricoLeituraTela extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbHistorico);
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +123,11 @@ public class ExibirHistoricoLeituraTela extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExibirHistoricoLeituraTela().setVisible(true);
+                try {
+                    new ExibirHistoricoLeituraTela().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ExibirHistoricoLeituraTela.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -122,6 +135,6 @@ public class ExibirHistoricoLeituraTela extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVoltar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbHistorico;
     // End of variables declaration//GEN-END:variables
 }
